@@ -2,6 +2,13 @@
 Mt. Baker Workout App Created for tracking workouts and completion status
 with comments.
 
+Notes on updating credentials:
+I got the information on how to deploy this with gcp here:
+https://docs.streamlit.io/develop/tutorials/databases/private-gsheet
+
+And to update the URL to include any new url redirects I got the info here:
+https://console.cloud.google.com/apis/credentials?project=flashcards-475119
+
 Created by Lori Jackson January 2026
 '''
 from datetime import datetime
@@ -133,9 +140,8 @@ else:
                 update_header(date_delta=0)
             st.write(st.session_state.df_written_to_gsheets_text)
     with entire_schedule_tab:
-        with st.form(key='Pull in Data from Google Sheets'):
-            st.markdown('# Currently Viewing the entire schedule')
-            # clear_cache_and_sync = st.form_submit_button(label='Sync with Google Sheets')
+        st.markdown('# Currently Viewing the entire schedule')
+        st.table(st.session_state.calendar_df)
 
 
 
