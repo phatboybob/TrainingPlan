@@ -14,6 +14,7 @@ NO = ":x:"
 KIND_OF = ":woman_shrugging:"
 
 CALENDAR_WORKSHEET = 'Schedule_streamlit'
+WORKOUTS_WORKSHEET = 'Workouts'
 COLUMNS_AND_TYPES = {'Date': datetime,
                      'Day of the Week': str,
                      'Workout': str,
@@ -133,6 +134,24 @@ def get_calendar_dataframe():
     calendar_df = gcp_connection.read(worksheet=CALENDAR_WORKSHEET, index_col='Date', parse_dates=['Date'], dtype=COLUMN_DTYPES).fillna(na_fill_subeset)
 
     return calendar_df
+
+
+def get_workout_descriptions_dataframe():
+    """Gets the workouts dataframe from Google Sheets
+
+    Returns:
+        dataframe: dataframe conversion of the csv of workouts
+    """
+
+    # Create a connection object.
+    gcp_connection = st.connection("gsheets",
+                                   type=GSheetsConnection)
+
+    na_fill_subeset = {'URL': '',
+                       }
+    workouts_df = gcp_connection.read(worksheet=WORKOUTS_WORKSHEET, index_col='Workout Name').fillna(na_fill_subeset).dropna(how='all')
+
+    return workouts_df
 
 def get_workout(date):
     """Gets today's workout from the calendar dataframe
