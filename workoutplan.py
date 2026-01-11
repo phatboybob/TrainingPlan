@@ -23,6 +23,7 @@ from utils import (get_calendar_dataframe,
                    update_header,
                    set_completion_status_emoji,
                    write_df_to_google_drive,
+                   get_workout_descriptions_dataframe,
                    )
 
 YES = ":white_check_mark:"
@@ -56,7 +57,11 @@ else:
         st.session_state.df_written_to_gsheets_text = 'Click Submit to write you workout completion status to google sheets'
 
     # create tabs for the workout and displaying the entire schedule as a dataframe/table
-    current_workout_tab, entire_schedule_tab = st.tabs(['Workout', 'Entire Schedule'])
+    (current_workout_tab,
+     entire_schedule_tab,
+     workout_descriptions_tab) = st.tabs(['Workout',
+                                        'Entire Schedule',
+                                        'Workout Descriptions'])
 
     # Current workout tab: displays the workout for selected date
     # Lets user set if they completed it or not.
@@ -142,8 +147,15 @@ else:
     with entire_schedule_tab:
         st.markdown('# Currently Viewing the entire schedule')
         st.table(st.session_state.calendar_df)
+    with workout_descriptions_tab:
+        st.markdown('# Workout Descriptions')
+        workout_descriptions_df = get_workout_descriptions_dataframe()
+        selected_workout = st.selectbox(label='Select a workout to view description:',
+                     options=workout_descriptions_df.index.tolist(),
+                     key='selected_workout_description')
 
-
+        filtered_df = workout_descriptions_df[workout_descriptions_df.index == selected_workout]
+        st.table(filtered_df)
 
 if st.user.is_logged_in:
     if st.button("Log out"):
