@@ -31,8 +31,9 @@ NO = ":x:"
 KIND_OF = ":woman_shrugging:"
 
 # Assure the user is logged in and authorized
-if not st.user.is_logged_in:
-    login_screen()
+if True
+# if not st.user.is_logged_in:
+#     login_screen()
 elif st.user.email not in st.secrets["authorized_users"]:
     st.header(f"Access Denied {st.user.name}")
     st.subheader(f"{st.user.email} does not have permission to view this app.")
