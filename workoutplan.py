@@ -34,14 +34,16 @@ KIND_OF = ":woman_shrugging:"
 
 
 
-st.header(f"Welcome, {st.user.name}!")
-st.session_state.current_user = st.user.given_name
 
 # Standard streamlit page configuration
 st.set_page_config(page_title='Mt. Baker Training Plan 2026',
                     layout='wide',
+
                     )
 
+
+st.header(f"Welcome, Lori!")
+st.session_state.current_user = 'Lori'
 # Get the dataframe for the trainingplan only
 if 'calendar_df' not in st.session_state:
     st.session_state.calendar_df = get_calendar_dataframe()
