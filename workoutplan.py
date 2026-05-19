@@ -31,7 +31,8 @@ NO = ":x:"
 KIND_OF = ":woman_shrugging:"
 
 # Assure the user is logged in and authorized
-if True
+if True:
+    print("logging in")
 # if not st.user.is_logged_in:
 #     login_screen()
 elif st.user.email not in st.secrets["authorized_users"]:
